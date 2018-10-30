@@ -1,0 +1,16 @@
+.btn-custom{
+    background-color: rgb(170, 90, 90);
+    border: 1px solid rgb(138, 74, 74) ;
+    margin-right: 30px;
+    display: inline-block;
+    width: 200px;
+}
+.background{
+    background-image:url("../assets/img/back.jpeg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	font-family:Arial,sans-serif;
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+}

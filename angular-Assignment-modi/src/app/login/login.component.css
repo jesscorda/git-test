@@ -1,0 +1,107 @@
+body{
+	
+	font-family:sans-serif;
+	font-family:Arial;
+
+}
+input[type="submit"]{
+	background-color:#17af17;
+	display:block;
+	width:97%;
+	border:none;
+	font-family:Arial;
+	margin-top:3%;
+	border-radius:2px;
+	padding:2%;
+	font-size:16px;
+	box-shadow:3px 3px #888888;
+	margin-bottom: 22px;
+	}
+#fb{
+	background:#00a1ff;
+	display:inline-block;
+	padding-top:2.5%;
+	padding-bottom:2.5%;
+	width:100%;
+	border-radius:7px;
+	color: white;
+	border:2px solid #00a1ff;
+	font-size:16px;
+}
+#google{
+	background:red;
+	display:inline-block;
+	padding-top:2.5%;
+	padding-bottom:2.5%;
+	width:100%;	
+	border-radius:7px;
+	color: white;
+	border:2px solid red;
+	font-size:16px;
+}
+
+a.one:visited{
+	color:red;
+	padding-top: 5px;
+}
+input { 
+	padding: 1%;    
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	border-bottom:none;
+	width: 100%;
+	font-size:110%;
+	
+}
+a{
+	text-decoration:none;
+}
+
+#big{
+	font-size:200%;
+	margin-bottom: 5%;
+}
+#space{
+	padding-top:0px;
+	padding-bottom:0px;
+	font-size:15px;
+}
+.white{
+	color:white;
+}
+.red-box{
+     border: 2px solid red;
+    height: 38px;
+    width: 6px;
+    position: absolute;
+    background-color: red;
+    top: 15px;
+    left: -1px;
+}
+/*  .email{
+	padding-top: 6%;
+    font-size: 16px;
+}
+.password{
+	padding-top:3%;
+	font-size:16px;
+	}  */
+#sp{
+	line-height:23px;
+	margin-top: 17px;
+
+}
+p{
+	font-size:16px;
+}
+.spacing{
+padding-right:12px;
+}
+.col-resize{
+	margin: 0 auto;
+}
+.full-width{
+	width:100%;
+}
+

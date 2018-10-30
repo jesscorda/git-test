@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Login</title>
+	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	
+</head>
+<body>
+	
+	<div class="container-fluid" style="margin-top: 24px;">
+	
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4 col-resize" style="background-color: white; padding-top: 15px; padding-bottom: 15px;">
+	<div class="red-box"></div>
+	
+		
+		<p id="big">Login Form</p>
+		<p id="space">Enter Your Login Details</p>
+
+		<form novalidate [formGroup]="loginForm" action="" method="POST" (ngSubmit)="onSubmit()">
+		<p><span style="color:red" *ngIf="d">Your credentials are not registered with us</span>
+			<mat-form-field class="full-width" >
+			<span style="color:red" *ngIf="c">You have not verified your account. Please verify it</span>
+			<span style="color:red" *ngIf="b">The email credentials that you've entered doesn't match any account. Sign up for an account</span>		
+			<input matInput formControlName="email" type="email"  placeholder="E-Mail" required class="email"/>
+			<mat-error *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').pristine">Email is required</mat-error>
+			<mat-error *ngIf="loginForm.get('email').hasError('pattern')&& (loginForm.get('email').dirty || loginForm.get('email').touched)">Please enter a valid e-mail address </mat-error>
+
+		</mat-form-field>	
+		</p>
+		<p>
+			<mat-form-field class="full-width" >
+				<input matInput formControlName="password" [type]="show ? 'text' : 'password'"  placeholder="Password" required class="password">
+				<span style="text-align:right"><i style="float:right" class="fa fa-fw fa-eye" (click)="password()"></i></span>
+				<mat-error *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').pristine">Password is required</mat-error>
+
+		</mat-form-field>
+		</p>
+			
+			<input  type="submit" value="SIGN IN"  [disabled]="flagButton" (click)="validate()">
+		</form>
+		<a  routerLink="/ForgotPassword"  class="one" >Forgot Password?</a><br>
+		<p id="sp">Don't have an account?<a routerLink ="/Registration" >Register here</a></p>
+		<p style="line-height:24px;">Sign in using</p>
+		
+		<div class="col-sm-6" style="display:inline-block">
+		<button id='fb' (click)="socialSignIn('facebook')"  id="fb" ><i class="fab fa-facebook-f spacing"></i>Facebook</button>
+	</div><div class="col-sm-6" style="display:inline-block">
+		<button id="google" (click)="socialSignIn('google')"><i class="fab fa-google spacing"></i>Google</button>
+		</div>
+		
+</div>
+	
+	
+	<div class="col-sm-4"></div>
+</div>
+</body>
+</html>
+
+

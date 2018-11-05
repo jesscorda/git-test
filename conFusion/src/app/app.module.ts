@@ -10,6 +10,8 @@ import {
   } from '@angular/material'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { DishService } from './services/dish.service';
+
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -34,7 +36,7 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
     FlexLayoutModule
     
   ],
-  providers: [],
+  providers: [DishService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

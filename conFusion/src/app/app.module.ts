@@ -6,9 +6,11 @@ import {
    MatListModule,
    MatGridListModule,
    MatCardModule,
-   MatButtonModule
+   MatButtonModule,
+   MatDialogModule
   } from '@angular/material'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 
 import { DishService } from './services/dish.service';
 
@@ -17,13 +19,27 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './home/home.component';
+import { ContactComponent } from './contact/contact.component';
+import { PromotionService } from './services/promotion.service';
+import { LeaderService } from './services/leader.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    DishdetailComponent
+    DishdetailComponent,
+    HeaderComponent,
+    FooterComponent,
+    AboutComponent,
+    HomeComponent,
+    ContactComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +49,13 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    FlexLayoutModule
-    
+    MatDialogModule,
+    FlexLayoutModule,
+    AppRoutingModule
+  ], entryComponents: [
+    LoginComponent
   ],
-  providers: [DishService],
+  providers: [DishService, PromotionService, LeaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

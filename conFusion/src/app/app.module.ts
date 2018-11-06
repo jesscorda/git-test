@@ -7,10 +7,16 @@ import {
    MatGridListModule,
    MatCardModule,
    MatButtonModule,
-   MatDialogModule
+   MatDialogModule,
+   MatFormFieldModule,
+   MatInputModule,
+   MatCheckboxModule,
+   MatSelectModule,
+   MatSlideToggleModule
   } from '@angular/material'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 
 import { DishService } from './services/dish.service';
 
@@ -50,8 +56,15 @@ import { LoginComponent } from './login/login.component';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSlideToggleModule,
     FlexLayoutModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ], entryComponents: [
     LoginComponent
   ],

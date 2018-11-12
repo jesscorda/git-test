@@ -12,11 +12,13 @@ import {
    MatInputModule,
    MatCheckboxModule,
    MatSelectModule,
-   MatSlideToggleModule
+   MatSlideToggleModule,
+  MatSliderModule
   } from '@angular/material'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { HttpClientModule } from '@angular/common/http';
 
 import { DishService } from './services/dish.service';
 
@@ -33,6 +35,7 @@ import { ContactComponent } from './contact/contact.component';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
+import { DirDirective } from './dir.directive';
 
 
 @NgModule({
@@ -45,7 +48,8 @@ import { LoginComponent } from './login/login.component';
     AboutComponent,
     HomeComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    DirDirective
   ],
   imports: [
     BrowserModule,
@@ -61,10 +65,12 @@ import { LoginComponent } from './login/login.component';
     MatCheckboxModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatSliderModule,
     FlexLayoutModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ], entryComponents: [
     LoginComponent
   ],

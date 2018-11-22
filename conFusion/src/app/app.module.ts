@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { DishService } from './services/dish.service';
+import { baseURL } from './shared/baseUrl';
 
 import 'hammerjs';
 
@@ -74,7 +75,8 @@ import { DirDirective } from './dir.directive';
   ], entryComponents: [
     LoginComponent
   ],
-  providers: [DishService, PromotionService, LeaderService],
+  providers: [DishService, PromotionService, LeaderService,
+    { provide: 'BaseURL', useValue: baseURL}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

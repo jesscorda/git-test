@@ -3,7 +3,8 @@ import { Dish } from '../shared/dish';
 import { DISHES } from '../shared/dishes';
 import { DishService } from '../services/dish.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { trigger, state, style, animate, transition } from '@angular/animations'
+import { visibility } from '../animations/app.animations'
 
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -13,11 +14,12 @@ import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.css']
+  styleUrls: ['./dishdetail.component.css'],
+  animations: [ visibility() ]
 })
 export class DishdetailComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective;
- 
+  visibility = 'shown';
   dishes = DISHES; 
   dish: Dish;
   a={
@@ -82,6 +84,7 @@ export class DishdetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.a = this.feedbackForm.value;
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(+params['id'])))
       .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
@@ -95,7 +98,7 @@ export class DishdetailComponent implements OnInit {
   createForm() {
     this.feedbackForm = this.fb.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-      rating: ['', [Validators.required ]],
+      rating: ['5', [Validators.required ]],
       comment: ['', [Validators.required]],
       
     });

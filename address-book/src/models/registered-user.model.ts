@@ -45,6 +45,12 @@ export class RegisteredUser extends Entity {
   })
   number: number;
 
+  @property({
+    type: "date",
+    required: true
+})
+sendTimeStamp: string;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data

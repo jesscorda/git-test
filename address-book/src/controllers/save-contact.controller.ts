@@ -16,21 +16,28 @@ import {
   put,
   del,
   requestBody,
+  HttpErrors,
+  RestBindings,
+  Request
 } from '@loopback/rest';
-import {SavedContact} from '../models';
-import {SavedContactRepository} from '../repositories';
+import {inject} from '@loopback/context';
+import { SavedContact } from '../models';
+import { SavedContactRepository } from '../repositories';
+import { validateRequestBody, ValidationError } from "../utils/validation.utils";
+import { verifyJWT } from "../utils/generateVerifyToken";
 
 export class SaveContactController {
   constructor(
+    @inject(RestBindings.Http.REQUEST) public request: Request,
     @repository(SavedContactRepository)
-    public savedContactRepository : SavedContactRepository,
-  ) {}
+    public savedContactRepository: SavedContactRepository,
+  ) { }
 
   @post('/saved-contacts', {
     responses: {
       '200': {
         description: 'SavedContact model instance',
-        content: {'application/json': {schema: getModelSchemaRef(SavedContact)}},
+        content: { 'application/json': { schema: getModelSchemaRef(SavedContact) } },
       },
     },
   })
@@ -38,14 +45,29 @@ export class SaveContactController {
     @requestBody()
     savedContact: SavedContact,
   ): Promise<SavedContact> {
-    return this.savedContactRepository.create(savedContact);
+    try {
+      if(this.request.headers.authorization == undefined){
+        throw new HttpErrors.Unauthorized();
+      }
+      const token = this.request.headers.authorization.split(" ")[1];
+      await verifyJWT(token);
+      validateRequestBody(savedContact);
+      return this.savedContactRepository.create(savedContact);
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        throw new HttpErrors.UnprocessableEntity(error.message);
+      }
+      else {
+        throw error;
+      }
+    }
   }
 
   @get('/saved-contacts/count', {
     responses: {
       '200': {
         description: 'SavedContact model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -61,7 +83,7 @@ export class SaveContactController {
         description: 'Array of SavedContact model instances',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(SavedContact)},
+            schema: { type: 'array', items: getModelSchemaRef(SavedContact) },
           },
         },
       },
@@ -70,14 +92,28 @@ export class SaveContactController {
   async find(
     @param.query.object('filter', getFilterSchemaFor(SavedContact)) filter?: Filter<SavedContact>,
   ): Promise<SavedContact[]> {
-    return this.savedContactRepository.find(filter);
+    try {
+      if(this.request.headers.authorization == undefined){
+        throw new HttpErrors.Unauthorized();
+      }
+      const token = this.request.headers.authorization.split(" ")[1];
+      await verifyJWT(token);
+      return this.savedContactRepository.find(filter);
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        throw new HttpErrors.UnprocessableEntity(error.message);
+      }
+      else {
+        throw error;
+      }
   }
+}
 
   @patch('/saved-contacts', {
     responses: {
       '200': {
         description: 'SavedContact PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -85,7 +121,7 @@ export class SaveContactController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(SavedContact, {partial: true}),
+          schema: getModelSchemaRef(SavedContact, { partial: true }),
         },
       },
     })
@@ -99,7 +135,7 @@ export class SaveContactController {
     responses: {
       '200': {
         description: 'SavedContact model instance',
-        content: {'application/json': {schema: getModelSchemaRef(SavedContact)}},
+        content: { 'application/json': { schema: getModelSchemaRef(SavedContact) } },
       },
     },
   })
@@ -119,7 +155,7 @@ export class SaveContactController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(SavedContact, {partial: true}),
+          schema: getModelSchemaRef(SavedContact, { partial: true }),
         },
       },
     })

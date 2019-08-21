@@ -16,12 +16,19 @@ import {
   put,
   del,
   requestBody,
+  HttpErrors,
+  RestBindings,
+  Request
 } from '@loopback/rest';
+import {inject} from '@loopback/context';
 import {SavedPlace} from '../models';
 import {SavedPlaceRepository} from '../repositories';
+import { validateRequestBody, ValidationError } from "../utils/validation.utils";
+import { verifyJWT } from "../utils/generateVerifyToken";
 
 export class SavePlaceController {
   constructor(
+    @inject(RestBindings.Http.REQUEST) public request: Request,
     @repository(SavedPlaceRepository)
     public savedPlaceRepository : SavedPlaceRepository,
   ) {}
@@ -38,7 +45,22 @@ export class SavePlaceController {
     @requestBody()
     savedPlace: SavedPlace,
   ): Promise<SavedPlace> {
-    return this.savedPlaceRepository.create(savedPlace);
+    try {
+      if(this.request.headers.authorization == undefined){
+        throw new HttpErrors.Unauthorized();
+      }
+      const token = this.request.headers.authorization.split(" ")[1];
+      await verifyJWT(token);
+      validateRequestBody(savedPlace);
+      return this.savedPlaceRepository.create(savedPlace);
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        throw new HttpErrors.UnprocessableEntity(error.message);
+      }
+      else {
+        throw error;
+      }
+    }
   }
 
   @get('/saved-places/count', {
@@ -70,7 +92,21 @@ export class SavePlaceController {
   async find(
     @param.query.object('filter', getFilterSchemaFor(SavedPlace)) filter?: Filter<SavedPlace>,
   ): Promise<SavedPlace[]> {
-    return this.savedPlaceRepository.find(filter);
+    try {
+      if(this.request.headers.authorization == undefined){
+        throw new HttpErrors.Unauthorized();
+      }
+      const token = this.request.headers.authorization.split(" ")[1];
+      await verifyJWT(token);
+      return this.savedPlaceRepository.find(filter);
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        throw new HttpErrors.UnprocessableEntity(error.message);
+      }
+      else {
+        throw error;
+      }
+    }
   }
 
   @patch('/saved-places', {

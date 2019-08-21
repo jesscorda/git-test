@@ -1,36 +1,30 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({settings: {strict: false}})
-export class SavedPlace extends Entity {
-  @property({
-    type: 'string',
-    required: true,
-  })
-  name: string;
-
+export class LoggedUser extends Entity {
   @property({
     type: 'string',
     id: true,
-    generated: true
   })
-  id: string;
+  id?: string;
 
   @property({
-    type: 'object',
+    type: 'date',
     required: true,
   })
-  address: object;
+  sendTimeStamp: string;
 
   @property({
     type: 'string',
+    required: true,
   })
-  typeOfPlace: string;
+  userName: string;
 
   @property({
-    type: "date",
-    required: true
-})
-sendTimeStamp: string;
+    type: 'string',
+    required: true,
+  })
+  password: string;
 
   // Define well-known properties here
 
@@ -38,13 +32,13 @@ sendTimeStamp: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<SavedPlace>) {
+  constructor(data?: Partial<LoggedUser>) {
     super(data);
   }
 }
 
-export interface SavedPlaceRelations {
+export interface LoogedUserRelations {
   // describe navigational properties here
 }
 
-export type SavedPlaceWithRelations = SavedPlace & SavedPlaceRelations;
+export type LoogedUserWithRelations = LoggedUser & LoogedUserRelations;
